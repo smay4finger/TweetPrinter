@@ -1,0 +1,24 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Net::Twitter;
+use Storable;
+use Data::Dumper::Concise;
+
+my $oauth = eval {retrieve("oauth.dat"); } or die("please authenticcate first.");
+my $nt = Net::Twitter->new(
+    traits => [ 'API::RESTv1_1' ],
+    ssl => 1,
+    %$oauth,
+) or die;
+
+
+my $tweets = $nt->search('#foojiyama');
+print Dumper($tweets);
+for my $status ( @{$tweets->{statuses}} ) {
+    my $screen_name       = $status->{user}->{screen_name};
+    my $profile_image_url = $status->{user}->{profile_image_url};
+    my $text              = $status->{text};
+    print("@" . $screen_name . " " . $text . "\n");
+}
+
