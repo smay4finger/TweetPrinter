@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+
+
+my $url1 = "http://pbs.twimg.com/profile_images/2751389278/8e06eb263d2dff8080098b305b42888d_normal.png";
+my $url2 = "http://pbs.twimg.com/profile_images/378800000503356268/e4f1cea9df0e4cf5b0b9e7b3e815ac76_normal.jpeg";
+
+
+open(PRINTER, "> /dev/usb/lp0") or die("$!");
+
+
+# alle Zeichen sind 6 pixel breit
+
+# ESC 2 -> 4.23mm
+# ESC 1 -> 2.47mm
+
+print(PRINTER "\0332");
+print(PRINTER "Hello World!\015\012");
+print(PRINTER "Hello World!\015\012");
+print(PRINTER "\0331");
+for ( my $i = 0; $i < 48; $i++ ) {
+    print(PRINTER "\033K" . pack("vC*", 10, 0, 0, 0, 0, 0x0F, 0, 0, 0, 0, 0xFF));
+}
+for ( my $i = 0; $i < 48; $i++ ) {
+    print(PRINTER "\033K" . pack("vC*", 10, 0, 0, 0, 0, 0x0F, 0, 0, 0, 0, 0xFF));
+}
+print(PRINTER "\011");
+
+
+print(PRINTER "\0331");
+for ( my $i = 0; $i < 5; $i++ ) {
+    print(PRINTER "\033K" . pack("vC*", 10, 0, 0, 0, 0, 0x0F, 0, 0, 0, 0, 0xFF));
+}
+print(PRINTER "Hello World!\015\012");
+for ( my $i = 0; $i < 5; $i++ ) {
+    print(PRINTER "\033K" . pack("vC*", 10, 0, 0, 0, 0, 0x0F, 0, 0, 0, 0, 0xFF));
+}
+print(PRINTER "\015\012");
+for ( my $i = 0; $i < 5; $i++ ) {
+    print(PRINTER "\033K" . pack("vC*", 10, 0, 0, 0, 0, 0x0F, 0, 0, 0, 0, 0xFF));
+}
+print(PRINTER "Hello World!\015\012");
+
+close(PRINTER);
