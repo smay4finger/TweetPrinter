@@ -13,11 +13,8 @@ for (;;) {
     my @tweets = TweetSearch::search($config->param('search_term'));
     foreach my $tweet ( @tweets ) {
         my $image = TweetImage::create($tweet);
-        $image->Write('tweets/' . $tweet->{id} . ".jpg");
-
         PrintDriver::print($config->param('printer'), $image);
         print("tweet from " . $tweet->{user}->{name} . "\n");
     }
-
     sleep 10;
 }
