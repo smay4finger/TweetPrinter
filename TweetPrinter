@@ -1,24 +1,23 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Net::Twitter;
-use Storable;
-use Data::Dumper::Concise;
+use Config::Simple;
 
-my $oauth = eval {retrieve("oauth.dat"); } or die("please authenticcate first.");
-my $nt = Net::Twitter->new(
-    traits => [ 'API::RESTv1_1' ],
-    ssl => 1,
-    %$oauth,
-) or die;
+use TweetImage;
+use TweetSearch;
+use PrintDriver;
 
+my $config = Config::Simple->new('config.ini');
 
-my $tweets = $nt->search('#foojiyama');
-print Dumper($tweets);
-for my $status ( @{$tweets->{statuses}} ) {
-    my $screen_name       = $status->{user}->{screen_name};
-    my $profile_image_url = $status->{user}->{profile_image_url};
-    my $text              = $status->{text};
-    print("@" . $screen_name . " " . $text . "\n");
+for (;;) {
+    my @tweets = TweetSearch::search($config->param('search_term'));
+    foreach my $tweet ( @tweets ) {
+        my $image = TweetImage::create($tweet);
+        $image->Write('tweets/' . $tweet->{id} . ".jpg");
+
+        PrintDriver::print($config->param('printer'), $image);
+        print("tweet from " . $tweet->{user}->{name} . "\n");
+    }
+
+    sleep 10;
 }
-
