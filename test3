@@ -1,0 +1,108 @@
+#!/usr/bin/perl
+
+#
+# test images, special case with @ in text
+#
+
+my $tweet = eval <<'END';
+$VAR1 = {
+          'retweeted' => bless( do{\(my $o = 0)}, 'JSON::backportPP::Boolean' ),
+          'source' => '<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>',
+          'favorited' => $VAR1->{'retweeted'},
+          'coordinates' => undef,
+          'place' => undef,
+          'retweet_count' => 0,
+          'entities' => {
+                          'user_mentions' => [
+                                               {
+                                                 'name' => 'Sarah Davis',
+                                                 'indices' => [
+                                                                0,
+                                                                14
+                                                              ],
+                                                 'id_str' => '41408145',
+                                                 'id' => 41408145,
+                                                 'screen_name' => 'sarahdthatsme'
+                                               }
+                                             ],
+                          'hashtags' => [],
+                          'symbols' => [],
+                          'urls' => []
+                        },
+          'truncated' => $VAR1->{'retweeted'},
+          'in_reply_to_status_id_str' => undef,
+          'created_at' => 'Thu Feb 13 08:04:25 +0000 2014',
+          'contributors' => undef,
+          'text' => '@sarahdthatsme anonymous account on okcupid impersonating a beanbag model and harassing people is the actual best.',
+          'user' => {
+                      'friends_count' => 325,
+                      'follow_request_sent' => $VAR1->{'retweeted'},
+                      'profile_sidebar_fill_color' => 'E32820',
+                      'profile_image_url' => 'http://pbs.twimg.com/profile_images/430052478998962176/Gy8ZJnKc_normal.jpeg',
+                      'profile_background_image_url_https' => 'https://pbs.twimg.com/profile_background_images/378800000180172230/vXAZIMq4.png',
+                      'entities' => {
+                                      'description' => {
+                                                         'urls' => []
+                                                       }
+                                    },
+                      'profile_background_color' => 'FFFFFF',
+                      'notifications' => $VAR1->{'retweeted'},
+                      'url' => undef,
+                      'id' => 371077207,
+                      'following' => $VAR1->{'retweeted'},
+                      'is_translator' => $VAR1->{'retweeted'},
+                      'screen_name' => 'LizzyLou_xo',
+                      'lang' => 'en',
+                      'location' => '',
+                      'is_translation_enabled' => $VAR1->{'retweeted'},
+                      'followers_count' => 260,
+                      'statuses_count' => 861,
+                      'name' => 'Elizabeth Anne',
+                      'description' => 'Student at Clemson University. Social Media guru who reads too much #fastcompany and #psfk. One direction fanatic and lover of Netflix.',
+                      'favourites_count' => 375,
+                      'profile_background_tile' => bless( do{\(my $o = 1)}, 'JSON::backportPP::Boolean' ),
+                      'listed_count' => 0,
+                      'contributors_enabled' => $VAR1->{'retweeted'},
+                      'profile_banner_url' => 'https://pbs.twimg.com/profile_banners/371077207/1391368051',
+                      'profile_link_color' => '7BB3DC',
+                      'profile_image_url_https' => 'https://pbs.twimg.com/profile_images/430052478998962176/Gy8ZJnKc_normal.jpeg',
+                      'profile_sidebar_border_color' => 'FFA400',
+                      'created_at' => 'Sat Sep 10 04:40:30 +0000 2011',
+                      'utc_offset' => -18000,
+                      'verified' => $VAR1->{'retweeted'},
+                      'profile_background_image_url' => 'http://pbs.twimg.com/profile_background_images/378800000180172230/vXAZIMq4.png',
+                      'default_profile' => $VAR1->{'retweeted'},
+                      'protected' => $VAR1->{'retweeted'},
+                      'id_str' => '371077207',
+                      'profile_text_color' => '843AA9',
+                      'default_profile_image' => $VAR1->{'retweeted'},
+                      'time_zone' => 'Quito',
+                      'profile_use_background_image' => $VAR1->{'user'}{'profile_background_tile'},
+                      'geo_enabled' => $VAR1->{'retweeted'}
+                    },
+          'in_reply_to_user_id' => 41408145,
+          'metadata' => {
+                          'result_type' => 'recent',
+                          'iso_language_code' => 'en'
+                        },
+          'id' => '433874284662894592',
+          'in_reply_to_status_id' => undef,
+          'lang' => 'en',
+          'geo' => undef,
+          'in_reply_to_user_id_str' => '41408145',
+          'id_str' => '433874284662894592',
+          'favorite_count' => 0,
+          'in_reply_to_screen_name' => 'sarahdthatsme'
+        };
+END
+
+use TweetImage;
+use Date::Parse;
+
+print $tweet->{created_at} . "\n";
+
+my ($ss,$mm,$hh,$day,$month,$year,$zone) = localtime(str2time($tweet->{created_at}, "Europe/Berlin"));
+printf("%02d:%02d\n", $hh, $mm);
+
+my $image = TweetImage::create($tweet);
+$image->Write('win:');

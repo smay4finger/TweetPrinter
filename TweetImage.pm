@@ -4,6 +4,7 @@ use strict;
 use Image::Magick;
 use POSIX qw(floor ceil);
 use LWP::Simple;
+use Date::Parse;
 
 my $width      = 480;
 my $top_gap    = 2;
@@ -15,6 +16,7 @@ my $x_gap      = 3;
 my $name_font        = { font => 'DejaVuSans-Bold.ttf', pointsize => 16, antialias => 'false' };
 my $screen_name_font = { font => 'DejaVuSans.ttf',      pointsize => 16, antialias => 'false' };
 my $text_font        = { font => 'DejaVuSans.ttf',      pointsize => 14, antialias => 'false' };
+my $time_font        = { font => 'DejaVuSans.ttf',      pointsize => 12, antialias => 'false' };
 
 
 sub create {
@@ -44,10 +46,14 @@ sub create {
     my $screen_name = Image::Magick->new(%$screen_name_font);
     $screen_name->Read('label:\@' . $tweet->{user}->{screen_name});
 
-    my $text_width = $width - $profile_image->Get('width') - 2 * $x_gap;
+    my $text_width = $width - $profile_image->Get('width') - $x_gap;
     my $text = Image::Magick->new(size => sprintf('%d', $text_width), %$text_font);
     $tweet->{text} =~ s/@/\\@/g; # @ must be sanitized, otherwise  evaluated by PerlMagick
     $text->Read('caption:' . $tweet->{text});
+
+    my ($ss,$mm,$hh,$day,$month,$year,$zone) = localtime(str2time($tweet->{created_at}, "Europe/Berlin"));
+    my $time = Image::Magick->new(%$time_font);
+    $time->Read(sprintf('label:%02d:%02d', $hh, $mm));
 
     #
     # compose image
@@ -86,6 +92,7 @@ sub create {
     $image->Composite(image => $name,          geometry => sprintf('%+d%+d', $name_x1, $name_y1));
     $image->Composite(image => $screen_name,   geometry => sprintf('%+d%+d', $screen_name_x1, $screen_name_y1));
     $image->Composite(image => $text,          geometry => sprintf('%+d%+d', $text_x1, $text_y1));
+    $image->Composite(image => $time,          geometry => sprintf('%+d%+d', $top_gap, $y_gap), gravity => "NorthEast");
     $image->Draw(primitive => 'line', points => sprintf('%d,%d %d,%d', 0, $line_y, $width, $line_y));
     $image->Draw(primitive => 'rectangle', 
         points => sprintf('%d,%d %d,%d', $profile_image_x1, $profile_image_y1, $profile_image_x2, $profile_image_y2), 
