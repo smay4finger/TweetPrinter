@@ -11,8 +11,9 @@ use PrintDriver;
 binmode STDOUT, ':utf8'; # prevents warning about wide characters
                          # your terminal must be utf8 ready
 
-for (;;) {
+for ( my $last_run = 0; ; $last_run = time) {
     my @tweets = TweetSearch::search;
+
     foreach my $tweet ( @tweets ) {
         print("tweet from " . $tweet->{user}->{name} . "\n");
         my $image = TweetImage::create($tweet);
@@ -28,5 +29,8 @@ for (;;) {
             close(TWEET);
         }
     }
-    sleep 10;
+    my $sleeptime = $last_run - time + 30;
+    $sleeptime = 0 if ( $sleeptime < 0 );
+    print("sleeping for $sleeptime seconds\n") if ( $TweetConfig::debug > 0 );
+    sleep($sleeptime);
 }
