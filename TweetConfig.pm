@@ -50,6 +50,10 @@ $text_size        = ($config->param('text_size') or $text_size);
 $time_font        = ($config->param('time_font') or $time_font);
 $time_size        = ($config->param('time_size') or $time_size);
 
+if ( not $printer =~ m/^\|/ ) {
+    $printer = ">" . $printer;
+}
+
 if ( $debug > 0 ) {
     print("loaded configuration\n");
 }

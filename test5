@@ -1,0 +1,228 @@
+#!/usr/bin/perl
+
+#
+# test images, special case with @ in text
+#
+
+my $tweet = eval <<'END';
+$VAR1 = {
+          'retweeted' => bless( do{\(my $o = 0)}, 'JSON::backportPP::Boolean' ),
+          'source' => '<a href="http://twitter.com/#!/download/ipad" rel="nofollow">Twitter for iPad</a>',
+          'favorited' => $VAR1->{'retweeted'},
+          'coordinates' => undef,
+          'retweeted_status' => {
+                                  'retweeted' => $VAR1->{'retweeted'},
+                                  'source' => '<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>',
+                                  'favorited' => $VAR1->{'retweeted'},
+                                  'coordinates' => undef,
+                                  'place' => undef,
+                                  'retweet_count' => 2,
+                                  'entities' => {
+                                                  'user_mentions' => [],
+                                                  'hashtags' => [],
+                                                  'symbols' => [],
+                                                  'urls' => [
+                                                              {
+                                                                'display_url' => "newsfeed.time.com/2014/01/22/mat\x{2026}",
+                                                                'expanded_url' => 'http://newsfeed.time.com/2014/01/22/math-nerd-games-okcupid-to-find-the-perfect-match/',
+                                                                'url' => 'http://t.co/NMEHEPN491',
+                                                                'indices' => [
+                                                                               13,
+                                                                               35
+                                                                             ]
+                                                              }
+                                                            ]
+                                                },
+                                  'truncated' => $VAR1->{'retweeted'},
+                                  'in_reply_to_status_id_str' => undef,
+                                  'created_at' => 'Thu Feb 13 11:13:52 +0000 2014',
+                                  'contributors' => undef,
+                                  'text' => "\x{c548}\x{c0dd}\x{ae30}\x{ba74} \x{c0dd}\x{ae30}\x{ac8c} \x{b9cc}\x{b4e4}\x{b77c} http://t.co/NMEHEPN491 \x{c628}\x{b77c}\x{c778}\x{b370}\x{c774}\x{d305} \x{c0ac}\x{c774}\x{d2b8}\x{c5d0} \x{bd88}\x{b9cc}\x{c744} \x{ac00}\x{c84c}\x{b358} \x{c218}\x{d559}\x{c790} \x{d06c}\x{b9ac}\x{c2a4} \x{b9e5}\x{d0a8}\x{b9ac}\x{b294} \x{c9c1}\x{c811} \x{c54c}\x{ace0}\x{b9ac}\x{c998}\x{c744} \x{ac1c}\x{bc1c}\x{d558}\x{ae30}\x{b85c} \x{c791}\x{c815}\x{d55c}\x{b2e4}. \x{c5f0}\x{ad6c}\x{c2e4}\x{c5d0} \x{c219}\x{c2dd}\x{c744} \x{d558}\x{ba70} \x{c5f0}\x{ad6c} \x{acb0}\x{acfc}\x{b97c} \x{c774}\x{c6a9}, \x{c5ec}\x{ce5c}\x{c744} \x{c5bb}\x{c5c8}\x{b2e4}\x{b294} \x{d6c8}\x{d6c8}\x{d55c} \x{c18c}\x{c2dd}.",
+                                  'user' => {
+                                              'friends_count' => 378,
+                                              'follow_request_sent' => $VAR1->{'retweeted'},
+                                              'profile_sidebar_fill_color' => 'DAECF4',
+                                              'profile_image_url' => 'http://pbs.twimg.com/profile_images/429977901866311681/kAB1P7ew_normal.jpeg',
+                                              'profile_background_image_url_https' => 'https://abs.twimg.com/images/themes/theme2/bg.gif',
+                                              'entities' => {
+                                                              'url' => {
+                                                                         'urls' => [
+                                                                                     {
+                                                                                       'display_url' => 'hardplanet.net',
+                                                                                       'expanded_url' => 'http://www.hardplanet.net',
+                                                                                       'url' => 'http://t.co/azvghtmw4W',
+                                                                                       'indices' => [
+                                                                                                      0,
+                                                                                                      22
+                                                                                                    ]
+                                                                                     }
+                                                                                   ]
+                                                                       },
+                                                              'description' => {
+                                                                                 'urls' => [
+                                                                                             {
+                                                                                               'display_url' => 'ask.fm/Aerycrow',
+                                                                                               'expanded_url' => 'http://ask.fm/Aerycrow',
+                                                                                               'url' => 'http://t.co/LY2OdMtkBm',
+                                                                                               'indices' => [
+                                                                                                              87,
+                                                                                                              109
+                                                                                                            ]
+                                                                                             }
+                                                                                           ]
+                                                                               }
+                                                            },
+                                              'profile_background_color' => 'C6E2EE',
+                                              'notifications' => $VAR1->{'retweeted'},
+                                              'url' => 'http://t.co/azvghtmw4W',
+                                              'id' => 154189636,
+                                              'following' => $VAR1->{'retweeted'},
+                                              'is_translator' => $VAR1->{'retweeted'},
+                                              'screen_name' => 'Aerycrow',
+                                              'lang' => 'ko',
+                                              'location' => 'Korea, 75% fucked-up',
+                                              'is_translation_enabled' => $VAR1->{'retweeted'},
+                                              'followers_count' => 282,
+                                              'statuses_count' => 21182,
+                                              'name' => 'Aerycrow',
+                                              'description' => "\x{c804}\x{d22c}\x{c801} \x{bb34}\x{c2e0}\x{b860}\x{c790}. \x{bc88}\x{c5ed}\x{c790}. \x{adf8}\x{b9ac}\x{ace0} \x{acfc}\x{d559}\x{c18c}\x{c124}\x{ac00}. Militant Atheist. Translator. Science Fiction Writer. \x{c9c8}\x{bb38} \x{c788}\x{c73c}\x{ba74} http://t.co/LY2OdMtkBm \x{c5d0} \x{d558}\x{c2dc}\x{ae38}.",
+                                              'favourites_count' => 241,
+                                              'profile_background_tile' => $VAR1->{'retweeted'},
+                                              'listed_count' => 21,
+                                              'contributors_enabled' => $VAR1->{'retweeted'},
+                                              'profile_banner_url' => 'https://pbs.twimg.com/profile_banners/154189636/1360127655',
+                                              'profile_link_color' => '1F98C7',
+                                              'profile_image_url_https' => 'https://pbs.twimg.com/profile_images/429977901866311681/kAB1P7ew_normal.jpeg',
+                                              'profile_sidebar_border_color' => 'C6E2EE',
+                                              'created_at' => 'Thu Jun 10 16:17:12 +0000 2010',
+                                              'utc_offset' => 32400,
+                                              'verified' => $VAR1->{'retweeted'},
+                                              'profile_background_image_url' => 'http://abs.twimg.com/images/themes/theme2/bg.gif',
+                                              'default_profile' => $VAR1->{'retweeted'},
+                                              'protected' => $VAR1->{'retweeted'},
+                                              'id_str' => '154189636',
+                                              'profile_text_color' => '663B12',
+                                              'default_profile_image' => $VAR1->{'retweeted'},
+                                              'time_zone' => 'Seoul',
+                                              'profile_use_background_image' => bless( do{\(my $o = 1)}, 'JSON::backportPP::Boolean' ),
+                                              'geo_enabled' => $VAR1->{'retweeted'}
+                                            },
+                                  'in_reply_to_user_id' => undef,
+                                  'metadata' => {
+                                                  'result_type' => 'recent',
+                                                  'iso_language_code' => 'ko'
+                                                },
+                                  'id' => '433921962885148672',
+                                  'in_reply_to_status_id' => undef,
+                                  'lang' => 'ko',
+                                  'geo' => undef,
+                                  'possibly_sensitive' => $VAR1->{'retweeted'},
+                                  'in_reply_to_user_id_str' => undef,
+                                  'id_str' => '433921962885148672',
+                                  'favorite_count' => 0,
+                                  'in_reply_to_screen_name' => undef
+                                },
+          'place' => undef,
+          'retweet_count' => 2,
+          'entities' => {
+                          'user_mentions' => [
+                                               {
+                                                 'name' => 'Aerycrow',
+                                                 'indices' => [
+                                                                3,
+                                                                12
+                                                              ],
+                                                 'id_str' => '154189636',
+                                                 'id' => 154189636,
+                                                 'screen_name' => 'Aerycrow'
+                                               }
+                                             ],
+                          'hashtags' => [],
+                          'symbols' => [],
+                          'urls' => [
+                                      {
+                                        'display_url' => "newsfeed.time.com/2014/01/22/mat\x{2026}",
+                                        'expanded_url' => 'http://newsfeed.time.com/2014/01/22/math-nerd-games-okcupid-to-find-the-perfect-match/',
+                                        'url' => 'http://t.co/NMEHEPN491',
+                                        'indices' => [
+                                                       27,
+                                                       49
+                                                     ]
+                                      }
+                                    ]
+                        },
+          'truncated' => $VAR1->{'retweeted'},
+          'in_reply_to_status_id_str' => undef,
+          'created_at' => 'Thu Feb 13 11:20:20 +0000 2014',
+          'contributors' => undef,
+          'text' => "RT \\\@Aerycrow: \x{c548}\x{c0dd}\x{ae30}\x{ba74} \x{c0dd}\x{ae30}\x{ac8c} \x{b9cc}\x{b4e4}\x{b77c} http://t.co/NMEHEPN491 \x{c628}\x{b77c}\x{c778}\x{b370}\x{c774}\x{d305} \x{c0ac}\x{c774}\x{d2b8}\x{c5d0} \x{bd88}\x{b9cc}\x{c744} \x{ac00}\x{c84c}\x{b358} \x{c218}\x{d559}\x{c790} \x{d06c}\x{b9ac}\x{c2a4} \x{b9e5}\x{d0a8}\x{b9ac}\x{b294} \x{c9c1}\x{c811} \x{c54c}\x{ace0}\x{b9ac}\x{c998}\x{c744} \x{ac1c}\x{bc1c}\x{d558}\x{ae30}\x{b85c} \x{c791}\x{c815}\x{d55c}\x{b2e4}. \x{c5f0}\x{ad6c}\x{c2e4}\x{c5d0} \x{c219}\x{c2dd}\x{c744} \x{d558}\x{ba70} \x{c5f0}\x{ad6c} \x{acb0}\x{acfc}\x{b97c} \x{c774}\x{c6a9}, \x{c5ec}\x{ce5c}\x{c744} \x{c5bb}\x{c5c8}\x{b2e4}\x{b294} \x{d6c8}\x{d6c8}\x{d55c}\x{2026}",
+          'user' => {
+                      'friends_count' => 234,
+                      'follow_request_sent' => $VAR1->{'retweeted'},
+                      'profile_sidebar_fill_color' => 'DDEEF6',
+                      'profile_image_url' => 'http://pbs.twimg.com/profile_images/427701354539143168/osmxh4Yf_normal.jpeg',
+                      'profile_background_image_url_https' => 'https://abs.twimg.com/images/themes/theme1/bg.png',
+                      'entities' => {
+                                      'description' => {
+                                                         'urls' => []
+                                                       }
+                                    },
+                      'profile_background_color' => 'C0DEED',
+                      'notifications' => $VAR1->{'retweeted'},
+                      'url' => undef,
+                      'id' => 980304181,
+                      'following' => $VAR1->{'retweeted'},
+                      'is_translator' => $VAR1->{'retweeted'},
+                      'screen_name' => 'Dubeolnarak',
+                      'lang' => 'ko',
+                      'location' => "\x{baa8}\x{b9ac}\x{c624}\x{cd78}",
+                      'is_translation_enabled' => $VAR1->{'retweeted'},
+                      'followers_count' => 192,
+                      'statuses_count' => 37070,
+                      'name' => "\x{b450}\x{bc8c}\x{b098}\x{b77d}",
+                      'description' => "\x{b298} \x{d604}\x{c2e4}\x{c5d0}\x{ac8c} \x{bc30}\x{bc18}\x{b2f9}\x{d558}\x{b294} \x{b450}\x{bc8c}\x{b098}\x{b77d}\x{c785}\x{b2c8}\x{b2e4}. / \x{c9c4}\x{b9ac}\x{b85c} \x{ac00}\x{b294} \x{ac00}\x{c2b4}\x{c740} \x{c791}\x{ace0} \x{bbf8}\x{c57d}\x{d558}\x{b2c8} \x{d30c}\x{b294} \x{c0ac}\x{b78c}\x{c774} \x{c801}\x{c74c}\x{c774}\x{b77c}.",
+                      'favourites_count' => 1767,
+                      'profile_background_tile' => $VAR1->{'retweeted'},
+                      'listed_count' => 0,
+                      'contributors_enabled' => $VAR1->{'retweeted'},
+                      'profile_banner_url' => 'https://pbs.twimg.com/profile_banners/980304181/1383933603',
+                      'profile_link_color' => '0084B4',
+                      'profile_image_url_https' => 'https://pbs.twimg.com/profile_images/427701354539143168/osmxh4Yf_normal.jpeg',
+                      'profile_sidebar_border_color' => 'C0DEED',
+                      'created_at' => 'Fri Nov 30 11:43:12 +0000 2012',
+                      'utc_offset' => undef,
+                      'verified' => $VAR1->{'retweeted'},
+                      'profile_background_image_url' => 'http://abs.twimg.com/images/themes/theme1/bg.png',
+                      'default_profile' => $VAR1->{'retweeted_status'}{'user'}{'profile_use_background_image'},
+                      'protected' => $VAR1->{'retweeted'},
+                      'id_str' => '980304181',
+                      'profile_text_color' => '333333',
+                      'default_profile_image' => $VAR1->{'retweeted'},
+                      'time_zone' => undef,
+                      'profile_use_background_image' => $VAR1->{'retweeted_status'}{'user'}{'profile_use_background_image'},
+                      'geo_enabled' => $VAR1->{'retweeted'}
+                    },
+          'in_reply_to_user_id' => undef,
+          'metadata' => {
+                          'result_type' => 'recent',
+                          'iso_language_code' => 'ko'
+                        },
+          'id' => '433923592070242304',
+          'in_reply_to_status_id' => undef,
+          'lang' => 'ko',
+          'geo' => undef,
+          'possibly_sensitive' => $VAR1->{'retweeted'},
+          'in_reply_to_user_id_str' => undef,
+          'id_str' => '433923592070242304',
+          'favorite_count' => 0,
+          'in_reply_to_screen_name' => undef
+        };
+END
+
+use TweetImage;
+use TweetConfig;
+
+print("top_gap=$TweetConfig::top_gap\n");
+
+my $image = TweetImage::create($tweet);
+#$image->Write('win:');
