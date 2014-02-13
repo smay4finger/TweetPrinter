@@ -10,12 +10,15 @@ use PrintDriver;
 
 my $config = Config::Simple->new('config.ini');
 
+binmode STDOUT, ':utf8'; # prevents warning about wide characters
+                         # your terminal must be utf8 ready
+
 for (;;) {
     my @tweets = TweetSearch::search($config->param('search_term'));
     foreach my $tweet ( @tweets ) {
+        print("tweet from " . $tweet->{user}->{name} . "\n");
         my $image = TweetImage::create($tweet);
         PrintDriver::print($config->param('printer'), $image);
-        print("tweet from " . $tweet->{user}->{name} . "\n");
 
         # debug
         if ( defined $config->param("debug") and $config->param("debug") > 0 ) {
