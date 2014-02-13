@@ -2,6 +2,7 @@
 
 use strict;
 use Data::Dumper;
+use Time::HiRes 'time';
 
 use TweetConfig;
 use TweetImage;
@@ -12,12 +13,25 @@ binmode STDOUT, ':utf8'; # prevents warning about wide characters
                          # your terminal must be utf8 ready
 
 for ( my $last_run = 0; ; $last_run = time) {
+    my ( $start, $elapsed );
+    
+    $start = time;
     my @tweets = TweetSearch::search;
+    $elapsed = int((time - $start) * 1000);
+    print("   TweetSearch::search $elapsed ms\n") if ( $TweetConfig::debug > 0 );
 
     foreach my $tweet ( @tweets ) {
         print("tweet from " . $tweet->{user}->{name} . "\n");
+
+        $start = time;
         my $image = TweetImage::create($tweet);
+        $elapsed = int((time - $start) * 1000);
+        print("   TweetImage::create $elapsed ms\n") if ( $TweetConfig::debug > 0 );
+
+        $start = time;
         PrintDriver::print($image);
+        $elapsed = int((time - $start) * 1000);
+        print("   PrintDriver::print $elapsed ms\n") if ( $TweetConfig::debug > 0 );
 
         # debug
         if ( $TweetConfig::debug > 0 ) {
@@ -29,7 +43,7 @@ for ( my $last_run = 0; ; $last_run = time) {
             close(TWEET);
         }
     }
-    my $sleeptime = $last_run - time + 30;
+    my $sleeptime = int($last_run - time + 30);
     $sleeptime = 0 if ( $sleeptime < 0 );
     print("sleeping for $sleeptime seconds\n") if ( $TweetConfig::debug > 0 );
     sleep($sleeptime);
