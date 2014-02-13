@@ -90,6 +90,7 @@ sub create {
         points => sprintf('%d,%d %d,%d', $profile_image_x1, $profile_image_y1, $profile_image_x2, $profile_image_y2), 
         fill => 'none', stroke => 1);
     $image->Set(monochrome => 'true');
+    $image->Negate();
 
     undef $profile_image;
     undef $name;

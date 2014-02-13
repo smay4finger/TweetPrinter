@@ -7,8 +7,6 @@ sub print {
     my $printer_name = shift or die;
     my $image = shift or die;
 
-    $image->Negate();
-
     open(PRINTER, ">", $printer_name)
         or die("couldn't open printer: $!; aborting");
     binmode(PRINTER);
