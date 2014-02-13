@@ -2,6 +2,7 @@ package TweetSearch;
 
 use strict;
 use Net::Twitter;
+use Scalar::Util 'blessed';
 use Storable;
 
 my $oauth = eval {retrieve("oauth.dat"); } or die("please authenticcate first.");
