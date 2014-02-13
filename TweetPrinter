@@ -2,6 +2,7 @@
 
 use strict;
 use Config::Simple;
+use Data::Dumper;
 
 use TweetImage;
 use TweetSearch;
@@ -15,6 +16,16 @@ for (;;) {
         my $image = TweetImage::create($tweet);
         PrintDriver::print($config->param('printer'), $image);
         print("tweet from " . $tweet->{user}->{name} . "\n");
+
+        # debug
+        if ( defined $config->param("debug") and $config->param("debug") > 0 ) {
+            mkdir("tweets") if ( not -e "tweets" );
+            my $file_prefix = "tweets/" . $tweet->{id};
+            $image->Write("$file_prefix.png");
+            open(TWEET, ">", "$file_prefix.dat");
+            print(TWEET Dumper($tweet));
+            close(TWEET);
+        }
     }
     sleep 10;
 }
