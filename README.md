@@ -12,7 +12,8 @@ Perl Dependencies
 - Image::Magick
 - Date::Parse
 - LWP::Simple
+- Config::Simple
 
 {{{
-apt-get install libnet-twitter-perl perlmagick libtimedate-perl libwww-perl
+apt-get install libnet-twitter-perl perlmagick libtimedate-perl libwww-perl libconfig-simple-perl
 }}}
