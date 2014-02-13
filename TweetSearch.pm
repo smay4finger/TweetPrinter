@@ -1,6 +1,7 @@
 package TweetSearch;
 
 use strict;
+use warnings;
 use Net::Twitter;
 use Scalar::Util 'blessed';
 use Storable;

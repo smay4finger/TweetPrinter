@@ -1,23 +1,19 @@
 package TweetImage;
 
 use strict;
+use warnings;
 use Image::Magick;
 use POSIX qw(floor ceil);
 use LWP::Simple;
 use Date::Parse;
 
+use TweetConfig;
+
+if ( $TweetConfig::debug > 0 ) {
+    print("initialize image creator\n");
+}
+
 my $width      = 480;
-my $top_gap    = 2;
-my $bottom_gap = 0;
-my $line_gap   = 5;
-my $y_gap      = 3;
-my $x_gap      = 3;
-
-my $name_font        = { font => 'DejaVuSans-Bold.ttf', pointsize => 16, antialias => 'false' };
-my $screen_name_font = { font => 'DejaVuSans.ttf',      pointsize => 16, antialias => 'false' };
-my $text_font        = { font => 'DejaVuSans.ttf',      pointsize => 14, antialias => 'false' };
-my $time_font        = { font => 'DejaVuSans.ttf',      pointsize => 12, antialias => 'false' };
-
 
 sub create {
     my $tweet = shift or die;
@@ -40,51 +36,56 @@ sub create {
     #
     # create text
     #
-    my $name = Image::Magick->new(%$name_font);
+    my $name = Image::Magick->new(font => $TweetConfig::name_font, 
+            pointsize => $TweetConfig::name_size, antialias => 'false');
     $name->Read('label:' . $tweet->{user}->{name});
 
-    my $screen_name = Image::Magick->new(%$screen_name_font);
+    my $screen_name = Image::Magick->new(font => $TweetConfig::screen_name_font, 
+            pointsize => $TweetConfig::screen_name_size, antialias => 'false');
     $screen_name->Read('label:\@' . $tweet->{user}->{screen_name});
 
-    my $text_width = $width - $profile_image->Get('width') - $x_gap;
-    my $text = Image::Magick->new(size => sprintf('%d', $text_width), %$text_font);
+    my $text_width = $width - $profile_image->Get('width') - $TweetConfig::x_gap;
+    my $text = Image::Magick->new(size => sprintf('%d', $text_width), 
+            font => $TweetConfig::text_font,
+            pointsize => $TweetConfig::text_size, antialias => 'false' );
     $tweet->{text} =~ s/@/\\@/g; # @ must be sanitized, otherwise  evaluated by PerlMagick
     $text->Read('caption:' . $tweet->{text});
 
     my ($ss,$mm,$hh,$day,$month,$year,$zone) = localtime(str2time($tweet->{created_at}, "Europe/Berlin"));
-    my $time = Image::Magick->new(%$time_font);
+    my $time = Image::Magick->new(font => $TweetConfig::time_font, 
+            pointsize => $TweetConfig::time_size, antialias => 'false');
     $time->Read(sprintf('label:%02d:%02d', $hh, $mm));
 
     #
     # compose image
     #
     my $profile_image_x1 = 0;
-    my $profile_image_y1 = $top_gap;
+    my $profile_image_y1 = 0;
     my $profile_image_x2 = $profile_image_x1 + $profile_image->Get('width');
     my $profile_image_y2 = $profile_image_y1 + $profile_image->Get('height');
 
-    my $name_x1 = $profile_image_x2 + $x_gap;
-    my $name_y1 = $top_gap;
+    my $name_x1 = $profile_image_x2 + $TweetConfig::x_gap;
+    my $name_y1 = $TweetConfig::top_gap;
     my $name_x2 = $name_x1 + $name->Get('width');
     my $name_y2 = $name_y1 + $name->Get('height');
 
-    my $screen_name_x1 = $name_x2 + $x_gap;
-    my $screen_name_y1 = $top_gap;
+    my $screen_name_x1 = $name_x2 + $TweetConfig::x_gap;
+    my $screen_name_y1 = $TweetConfig::top_gap;
     #my $screen_name_x2 = $screen_name_x1 + $screen_name->Get('width');
     #my $screen_name_y2 = $screen_name_y1 + $screen_name->Get('height');
 
-    my $text_x1 = $profile_image_x2 + $x_gap;
-    my $text_y1 = $name_y2 + $y_gap;
+    my $text_x1 = $profile_image_x2 + $TweetConfig::x_gap;
+    my $text_y1 = $name_y2 + $TweetConfig::y_gap;
     my $text_x2 = $text_x1 + $text->Get('width');
     my $text_y2 = $text_y1 + $text->Get('height');
 
-    my $height = $text_y2 + $bottom_gap;
-    if ( $height < ($profile_image_y2 + $line_gap + $bottom_gap) ) {
-        $height = $profile_image_y2 + $line_gap + $bottom_gap;
+    my $height = $text_y2 + $TweetConfig::line_gap + $TweetConfig::bottom_gap;
+    if ( $height < ($profile_image_y2 + $TweetConfig::line_gap + $TweetConfig::bottom_gap) ) {
+        $height = $profile_image_y2 + $TweetConfig::line_gap + $TweetConfig::bottom_gap;
     }
     $height = ceil($height / 8) * 8;
 
-    my $line_y = $height - $line_gap;
+    my $line_y = $text_y2 + $TweetConfig::line_gap;
 
     my $image = Image::Magick->new(size => sprintf('%dx%d', $width, $height));
     $image->Read('canvas:white');
@@ -92,7 +93,7 @@ sub create {
     $image->Composite(image => $name,          geometry => sprintf('%+d%+d', $name_x1, $name_y1));
     $image->Composite(image => $screen_name,   geometry => sprintf('%+d%+d', $screen_name_x1, $screen_name_y1));
     $image->Composite(image => $text,          geometry => sprintf('%+d%+d', $text_x1, $text_y1));
-    $image->Composite(image => $time,          geometry => sprintf('%+d%+d', $top_gap, $y_gap), gravity => "NorthEast");
+    $image->Composite(image => $time,          geometry => sprintf('%+d%+d', $TweetConfig::top_gap, $TweetConfig::y_gap), gravity => "NorthEast");
     $image->Draw(primitive => 'line', points => sprintf('%d,%d %d,%d', 0, $line_y, $width, $line_y));
     $image->Draw(primitive => 'rectangle', 
         points => sprintf('%d,%d %d,%d', $profile_image_x1, $profile_image_y1, $profile_image_x2, $profile_image_y2), 
