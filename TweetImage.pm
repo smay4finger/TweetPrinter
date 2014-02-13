@@ -8,7 +8,7 @@ use LWP::Simple;
 my $width      = 480;
 my $top_gap    = 2;
 my $bottom_gap = 0;
-my $line_gap   = 2;
+my $line_gap   = 5;
 my $y_gap      = 3;
 my $x_gap      = 3;
 
@@ -46,6 +46,7 @@ sub create {
 
     my $text_width = $width - $profile_image->Get('width') - 2 * $x_gap;
     my $text = Image::Magick->new(size => sprintf('%d', $text_width), %$text_font);
+    $tweet->{text} =~ s/@/\\@/g; # @ must be sanitized, otherwise  evaluated by PerlMagick
     $text->Read('caption:' . $tweet->{text});
 
     #
