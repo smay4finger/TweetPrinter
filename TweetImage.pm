@@ -36,6 +36,9 @@ sub create {
     #
     # create text
     #
+    if ( $tweet->{user}->{name} eq '' ) {
+        $tweet->{user}->{name} = $tweet->{user}->{screen_name};
+    }
     my $name = Image::Magick->new(font => $TweetConfig::name_font, 
             pointsize => $TweetConfig::name_size, antialias => 'false');
     $name->Read('label:' . $tweet->{user}->{name});
