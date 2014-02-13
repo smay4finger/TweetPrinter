@@ -4,6 +4,12 @@ use strict;
 use Net::Twitter;
 use Scalar::Util 'blessed';
 use Storable;
+use TweetConfig;
+
+if ( $TweetConfig::debug > 0 ) {
+    print("initialize Twitter-API\n");
+    print("search term is $TweetConfig::search_term\n");
+}
 
 my $oauth = eval {retrieve("oauth.dat"); } or die("please authenticcate first.");
 my $persistent = eval {retrieve("persistent.dat"); };
@@ -14,13 +20,11 @@ my $nt = Net::Twitter->new(
     %$oauth,
 ) or die;
 
-
 sub search {
-    my $search_term = shift or die;
     my @tweets = ();
 
     eval {
-        my $result = $nt->search($search_term, { since_id => ($persistent->{since_id} or 0)});
+        my $result = $nt->search($TweetConfig::search_term, { since_id => ($persistent->{since_id} or 0)});
 
         $persistent->{since_id} = $result->{search_metadata}->{max_id};
         store($persistent, 'persistent.dat');
