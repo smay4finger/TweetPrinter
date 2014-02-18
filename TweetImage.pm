@@ -13,7 +13,7 @@ if ( $TweetConfig::debug > 0 ) {
     print("initialize image creator\n");
 }
 
-my $width      = 480;
+my $width      = 576;
 
 sub create {
     my $tweet = shift or die;

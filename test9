@@ -1,0 +1,317 @@
+#!/usr/bin/perl
+
+my $tweet = eval <<'END';
+$VAR1 = {
+          'source' => '<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>',
+          'in_reply_to_screen_name' => undef,
+          'place' => undef,
+          'favorited' => bless( do{\(my $o = 0)}, 'JSON::XS::Boolean' ),
+          'created_at' => 'Thu Feb 13 19:14:22 +0000 2014',
+          'in_reply_to_user_id_str' => undef,
+          'truncated' => $VAR1->{'favorited'},
+          'metadata' => {
+                          'result_type' => 'recent',
+                          'iso_language_code' => 'en'
+                        },
+          'favorite_count' => 0,
+          'geo' => undef,
+          'coordinates' => undef,
+          'entities' => {
+                          'media' => [
+                                       {
+                                         'type' => 'photo',
+                                         'sizes' => {
+                                                      'large' => {
+                                                                   'w' => 1024,
+                                                                   'resize' => 'fit',
+                                                                   'h' => 683
+                                                                 },
+                                                      'small' => {
+                                                                   'h' => 227,
+                                                                   'w' => 340,
+                                                                   'resize' => 'fit'
+                                                                 },
+                                                      'medium' => {
+                                                                    'h' => 400,
+                                                                    'resize' => 'fit',
+                                                                    'w' => 600
+                                                                  },
+                                                      'thumb' => {
+                                                                   'w' => 150,
+                                                                   'resize' => 'crop',
+                                                                   'h' => 150
+                                                                 }
+                                                    },
+                                         'indices' => [
+                                                        139,
+                                                        140
+                                                      ],
+                                         'url' => 'http://t.co/8FLJLhqCrJ',
+                                         'display_url' => 'pic.twitter.com/8FLJLhqCrJ',
+                                         'id_str' => '434000677447012352',
+                                         'media_url_https' => 'https://pbs.twimg.com/media/BgXhUROCEAAGWo4.jpg',
+                                         'media_url' => 'http://pbs.twimg.com/media/BgXhUROCEAAGWo4.jpg',
+                                         'expanded_url' => 'http://twitter.com/pizzahut/status/434000677438623744/photo/1',
+                                         'id' => '434000677447012352'
+                                       }
+                                     ],
+                          'hashtags' => [
+                                          {
+                                            'indices' => [
+                                                           108,
+                                                           126
+                                                         ],
+                                            'text' => 'CommitToGreatness'
+                                          }
+                                        ],
+                          'urls' => [
+                                      {
+                                        'url' => 'http://t.co/nEulddXQfy',
+                                        'indices' => [
+                                                       85,
+                                                       107
+                                                     ],
+                                        'display_url' => 'okcupid.com/pizzahut',
+                                        'expanded_url' => 'http://okcupid.com/pizzahut'
+                                      }
+                                    ],
+                          'user_mentions' => [
+                                               {
+                                                 'name' => 'Pizza Hut',
+                                                 'screen_name' => 'pizzahut',
+                                                 'id_str' => '11018442',
+                                                 'id' => 11018442,
+                                                 'indices' => [
+                                                                3,
+                                                                12
+                                                              ]
+                                               }
+                                             ],
+                          'symbols' => []
+                        },
+          'in_reply_to_user_id' => undef,
+          'contributors' => undef,
+          'id' => '434042883994583040',
+          'retweet_count' => 248,
+          'user' => {
+                      'notifications' => $VAR1->{'favorited'},
+                      'profile_banner_url' => 'https://pbs.twimg.com/profile_banners/1213990051/1392000573',
+                      'follow_request_sent' => $VAR1->{'favorited'},
+                      'created_at' => 'Sat Feb 23 23:44:15 +0000 2013',
+                      'geo_enabled' => $VAR1->{'favorited'},
+                      'screen_name' => 'CaraNightSC',
+                      'profile_sidebar_border_color' => 'C0DEED',
+                      'following' => $VAR1->{'favorited'},
+                      'profile_sidebar_fill_color' => 'DDEEF6',
+                      'profile_image_url_https' => 'https://pbs.twimg.com/profile_images/433746518907318272/VF8piot__normal.jpeg',
+                      'profile_background_image_url_https' => 'https://abs.twimg.com/images/themes/theme1/bg.png',
+                      'profile_background_color' => 'C0DEED',
+                      'description' => 'sorry \'bout it',
+                      'followers_count' => 443,
+                      'default_profile' => bless( do{\(my $o = 1)}, 'JSON::XS::Boolean' ),
+                      'default_profile_image' => $VAR1->{'favorited'},
+                      'url' => 'https://t.co/dPpCx8G6Aj',
+                      'lang' => 'en',
+                      'profile_text_color' => '333333',
+                      'statuses_count' => 12058,
+                      'id_str' => '1213990051',
+                      'verified' => $VAR1->{'favorited'},
+                      'contributors_enabled' => $VAR1->{'favorited'},
+                      'friends_count' => 72,
+                      'location' => '',
+                      'utc_offset' => -18000,
+                      'profile_image_url' => 'http://pbs.twimg.com/profile_images/433746518907318272/VF8piot__normal.jpeg',
+                      'entities' => {
+                                      'url' => {
+                                                 'urls' => [
+                                                             {
+                                                               'display_url' => "twitter.com/50cent/status/\x{2026}",
+                                                               'url' => 'https://t.co/dPpCx8G6Aj',
+                                                               'indices' => [
+                                                                              0,
+                                                                              23
+                                                                            ],
+                                                               'expanded_url' => 'https://twitter.com/50cent/status/22201409032'
+                                                             }
+                                                           ]
+                                               },
+                                      'description' => {
+                                                         'urls' => []
+                                                       }
+                                    },
+                      'favourites_count' => 1570,
+                      'protected' => $VAR1->{'favorited'},
+                      'profile_link_color' => '0084B4',
+                      'profile_background_tile' => $VAR1->{'favorited'},
+                      'time_zone' => 'Eastern Time (US & Canada)',
+                      'id' => 1213990051,
+                      'is_translation_enabled' => $VAR1->{'favorited'},
+                      'profile_background_image_url' => 'http://abs.twimg.com/images/themes/theme1/bg.png',
+                      'listed_count' => 2,
+                      'profile_use_background_image' => $VAR1->{'user'}{'default_profile'},
+                      'name' => '',
+                      'is_translator' => $VAR1->{'favorited'}
+                    },
+          'in_reply_to_status_id' => undef,
+          'possibly_sensitive' => $VAR1->{'favorited'},
+          'in_reply_to_status_id_str' => undef,
+          'retweeted' => $VAR1->{'favorited'},
+          'lang' => 'en',
+          'text' => "RT \\\@pizzahut: Share your proposal idea for a chance at free pizza for life. Details: http://t.co/nEulddXQfy #CommitToGreatness http://t.co/\x{2026}",
+          'id_str' => '434042883994583040',
+          'retweeted_status' => {
+                                  'geo' => undef,
+                                  'favorite_count' => 297,
+                                  'entities' => {
+                                                  'media' => [
+                                                               {
+                                                                 'type' => 'photo',
+                                                                 'sizes' => {
+                                                                              'large' => {
+                                                                                           'h' => 683,
+                                                                                           'resize' => 'fit',
+                                                                                           'w' => 1024
+                                                                                         },
+                                                                              'thumb' => {
+                                                                                           'resize' => 'crop',
+                                                                                           'w' => 150,
+                                                                                           'h' => 150
+                                                                                         },
+                                                                              'medium' => {
+                                                                                            'h' => 400,
+                                                                                            'w' => 600,
+                                                                                            'resize' => 'fit'
+                                                                                          },
+                                                                              'small' => {
+                                                                                           'h' => 227,
+                                                                                           'w' => 340,
+                                                                                           'resize' => 'fit'
+                                                                                         }
+                                                                            },
+                                                                 'indices' => [
+                                                                                113,
+                                                                                135
+                                                                              ],
+                                                                 'url' => 'http://t.co/8FLJLhqCrJ',
+                                                                 'media_url' => 'http://pbs.twimg.com/media/BgXhUROCEAAGWo4.jpg',
+                                                                 'id_str' => '434000677447012352',
+                                                                 'display_url' => 'pic.twitter.com/8FLJLhqCrJ',
+                                                                 'media_url_https' => 'https://pbs.twimg.com/media/BgXhUROCEAAGWo4.jpg',
+                                                                 'expanded_url' => 'http://twitter.com/pizzahut/status/434000677438623744/photo/1',
+                                                                 'id' => '434000677447012352'
+                                                               }
+                                                             ],
+                                                  'hashtags' => [
+                                                                  {
+                                                                    'text' => 'CommitToGreatness',
+                                                                    'indices' => [
+                                                                                   94,
+                                                                                   112
+                                                                                 ]
+                                                                  }
+                                                                ],
+                                                  'urls' => [
+                                                              {
+                                                                'display_url' => 'okcupid.com/pizzahut',
+                                                                'url' => 'http://t.co/nEulddXQfy',
+                                                                'indices' => [
+                                                                               71,
+                                                                               93
+                                                                             ],
+                                                                'expanded_url' => 'http://okcupid.com/pizzahut'
+                                                              }
+                                                            ],
+                                                  'symbols' => [],
+                                                  'user_mentions' => []
+                                                },
+                                  'in_reply_to_user_id' => undef,
+                                  'contributors' => undef,
+                                  'coordinates' => undef,
+                                  'in_reply_to_screen_name' => undef,
+                                  'source' => 'web',
+                                  'truncated' => $VAR1->{'favorited'},
+                                  'in_reply_to_user_id_str' => undef,
+                                  'metadata' => {
+                                                  'iso_language_code' => 'en',
+                                                  'result_type' => 'recent'
+                                                },
+                                  'place' => undef,
+                                  'created_at' => 'Thu Feb 13 16:26:39 +0000 2014',
+                                  'favorited' => $VAR1->{'favorited'},
+                                  'id_str' => '434000677438623744',
+                                  'lang' => 'en',
+                                  'text' => 'Share your proposal idea for a chance at free pizza for life. Details: http://t.co/nEulddXQfy #CommitToGreatness http://t.co/8FLJLhqCrJ',
+                                  'user' => {
+                                              'description' => '',
+                                              'followers_count' => 727239,
+                                              'profile_background_color' => '131516',
+                                              'profile_background_image_url_https' => 'https://pbs.twimg.com/profile_background_images/378800000169178406/IXJt_m6e.png',
+                                              'profile_image_url_https' => 'https://pbs.twimg.com/profile_images/430740794626957313/iSLXLbB1_normal.jpeg',
+                                              'id_str' => '11018442',
+                                              'statuses_count' => 159475,
+                                              'profile_text_color' => '333333',
+                                              'url' => 'http://t.co/Ko9wKGmDba',
+                                              'lang' => 'en',
+                                              'default_profile_image' => $VAR1->{'favorited'},
+                                              'default_profile' => $VAR1->{'favorited'},
+                                              'following' => $VAR1->{'favorited'},
+                                              'screen_name' => 'pizzahut',
+                                              'profile_sidebar_border_color' => '000000',
+                                              'follow_request_sent' => $VAR1->{'favorited'},
+                                              'notifications' => $VAR1->{'favorited'},
+                                              'profile_banner_url' => 'https://pbs.twimg.com/profile_banners/11018442/1389879414',
+                                              'created_at' => 'Mon Dec 10 14:03:21 +0000 2007',
+                                              'geo_enabled' => $VAR1->{'user'}{'default_profile'},
+                                              'profile_sidebar_fill_color' => 'EFEFEF',
+                                              'listed_count' => 3492,
+                                              'is_translation_enabled' => $VAR1->{'favorited'},
+                                              'profile_background_image_url' => 'http://pbs.twimg.com/profile_background_images/378800000169178406/IXJt_m6e.png',
+                                              'id' => 11018442,
+                                              'time_zone' => 'Central Time (US & Canada)',
+                                              'profile_use_background_image' => $VAR1->{'user'}{'default_profile'},
+                                              'is_translator' => $VAR1->{'favorited'},
+                                              'name' => 'Pizza Hut',
+                                              'utc_offset' => -21600,
+                                              'location' => '',
+                                              'friends_count' => 60808,
+                                              'contributors_enabled' => $VAR1->{'favorited'},
+                                              'verified' => $VAR1->{'user'}{'default_profile'},
+                                              'protected' => $VAR1->{'favorited'},
+                                              'profile_background_tile' => $VAR1->{'favorited'},
+                                              'profile_link_color' => '009999',
+                                              'entities' => {
+                                                              'description' => {
+                                                                                 'urls' => []
+                                                                               },
+                                                              'url' => {
+                                                                         'urls' => [
+                                                                                     {
+                                                                                       'expanded_url' => 'http://pizzahut.com',
+                                                                                       'display_url' => 'pizzahut.com',
+                                                                                       'indices' => [
+                                                                                                      0,
+                                                                                                      22
+                                                                                                    ],
+                                                                                       'url' => 'http://t.co/Ko9wKGmDba'
+                                                                                     }
+                                                                                   ]
+                                                                       }
+                                                            },
+                                              'favourites_count' => 625,
+                                              'profile_image_url' => 'http://pbs.twimg.com/profile_images/430740794626957313/iSLXLbB1_normal.jpeg'
+                                            },
+                                  'possibly_sensitive' => $VAR1->{'favorited'},
+                                  'in_reply_to_status_id' => undef,
+                                  'id' => '434000677438623744',
+                                  'retweet_count' => 248,
+                                  'retweeted' => $VAR1->{'favorited'},
+                                  'in_reply_to_status_id_str' => undef
+                                }
+        };
+END
+
+use TweetImage;
+use PrintDriver;
+
+my $image = TweetImage::create($tweet);
+PrintDriver::print($image);
